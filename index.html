@@ -119,6 +119,45 @@
     font-family: inherit;
     outline: none;
   }
+  .services {
+    background: var(--panel);
+    border: 1px solid #2a2e3f;
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-top: 32px;
+  }
+  .services h2 {
+    font-size: 15px;
+    margin: 0 0 4px;
+  }
+  .services .note {
+    font-size: 12px;
+    color: var(--sub);
+    margin: 0 0 12px;
+  }
+  .service-link {
+    display: block;
+    background: var(--panel2);
+    border: 1px solid #2c3550;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+  .service-link:hover { border-color: var(--accent); }
+  .service-link .name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #9db8ff;
+  }
+  .service-link .desc {
+    font-size: 12px;
+    color: var(--sub);
+    margin-top: 3px;
+    line-height: 1.6;
+  }
   .status {
     position: fixed;
     bottom: 16px;
@@ -149,11 +188,29 @@
     <b>⚠ 画面共有の注意：</b>Zoomで共有するときは「画面全体」ではなく<b>特定のウィンドウだけ</b>を共有すれば、カンペは相手に見えません。小窓はカメラの近くに置くと目線のブレが少なくなります。
   </div>
   <div id="cards"></div>
+
+  <div class="services" id="services" hidden>
+    <h2>💼 面接対策に役立つサービス</h2>
+    <p class="note">※ 以下は紹介リンク（アフィリエイト）を含みます。リンク経由で登録されると運営者に報酬が入り、アプリの無料公開の支えになります。</p>
+    <div id="serviceLinks"></div>
+  </div>
 </main>
 
 <div class="status" id="status">保存しました ✓</div>
 
 <script>
+// ============================================================
+// アフィリエイトリンク設定
+// A8.net / もしもアフィリエイト等で発行された広告リンクのURLを
+// url に貼り付けると、ページ下部に「面接対策に役立つサービス」
+// として表示されます。空のままなら枠ごと非表示になります。
+// 例:
+//   { name: "〇〇エージェント", desc: "面接対策のサポートが手厚い転職エージェント", url: "https://px.a8.net/svt/ejp?a8mat=XXXXX" },
+// ============================================================
+const AFFILIATE_LINKS = [
+  // ここにリンクを追加
+];
+
 const STORAGE_KEY = "kanpe-cards-v1";
 
 const defaultCards = [
@@ -410,7 +467,31 @@ function refreshPip() {
   if (pipWin && !pipWin.closed && pipWin.renderCards) pipWin.renderCards();
 }
 
+function renderServices() {
+  const box = document.getElementById("services");
+  const wrap = document.getElementById("serviceLinks");
+  if (!AFFILIATE_LINKS.length) { box.hidden = true; return; }
+  box.hidden = false;
+  wrap.innerHTML = "";
+  AFFILIATE_LINKS.forEach(s => {
+    const a = document.createElement("a");
+    a.className = "service-link";
+    a.href = s.url;
+    a.target = "_blank";
+    a.rel = "nofollow sponsored noopener";
+    const name = document.createElement("div");
+    name.className = "name";
+    name.textContent = s.name + " →";
+    const desc = document.createElement("div");
+    desc.className = "desc";
+    desc.textContent = s.desc;
+    a.append(name, desc);
+    wrap.append(a);
+  });
+}
+
 render();
+renderServices();
 </script>
 </body>
 </html>

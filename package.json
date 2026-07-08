@@ -1,0 +1,15 @@
+{
+  "name": "interview-kanpe",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 8932",
+    "build": "next build",
+    "deploy": "next build && npx wrangler pages deploy out --project-name interview-kanpe --branch main --commit-dirty=true"
+  },
+  "dependencies": {
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

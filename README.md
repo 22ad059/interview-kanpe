@@ -2,6 +2,8 @@
 
 Zoom などのオンライン面接中に、カンペ（メモ）を**常に最前面の小窓**に表示できるWebアプリです。
 
+**アプリはこちら → https://interview-kanpe.pages.dev/**
+
 ## 使い方
 
 1. Chrome または Edge でアプリを開く

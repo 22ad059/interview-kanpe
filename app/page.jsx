@@ -359,6 +359,8 @@ export default function Home() {
 
       <footer className="footer">
         カンペの内容はお使いのブラウザ内（localStorage）にのみ保存され、サーバーには送信されません。
+        <br />
+        <a href="/privacy">プライバシーポリシー</a>
       </footer>
 
       <div className={`toast${toast.show ? " show" : ""}`}>{toast.msg}</div>
